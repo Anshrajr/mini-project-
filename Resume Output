@@ -1,0 +1,57 @@
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+
+public class ResumeServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws ServletException, IOException {
+
+        String name = req.getParameter("name");
+        String email = req.getParameter("email");
+        String phone = req.getParameter("phone");
+        String education = req.getParameter("education");
+        String skills = req.getParameter("skills");
+        String experience = req.getParameter("experience");
+
+        // 🔹 Save to XML file
+        FileWriter fw = new FileWriter("resume.xml");
+        fw.write("<resume>\n");
+        fw.write("<name>" + name + "</name>\n");
+        fw.write("<email>" + email + "</email>\n");
+        fw.write("<phone>" + phone + "</phone>\n");
+        fw.write("<education>" + education + "</education>\n");
+        fw.write("<skills>" + skills + "</skills>\n");
+        fw.write("<experience>" + experience + "</experience>\n");
+        fw.write("</resume>");
+        fw.close();
+
+        // 🔹 Generate PDF
+        try {
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, new FileOutputStream("Resume.pdf"));
+            doc.open();
+            doc.add(new Paragraph("Resume\n\n"));
+            doc.add(new Paragraph("Name: " + name));
+            doc.add(new Paragraph("Email: " + email));
+            doc.add(new Paragraph("Phone: " + phone));
+            doc.add(new Paragraph("\nEducation:\n" + education));
+            doc.add(new Paragraph("\nSkills:\n" + skills));
+            doc.add(new Paragraph("\nExperience:\n" + experience));
+            doc.close();
+        } catch (Exception e) { e.printStackTrace(); }
+
+        // 🔹 Send Data to JSP
+        req.setAttribute("name", name);
+        req.setAttribute("email", email);
+        req.setAttribute("phone", phone);
+        req.setAttribute("education", education);
+        req.setAttribute("skills", skills);
+        req.setAttribute("experience", experience);
+
+        RequestDispatcher rd = req.getRequestDispatcher("resume.jsp");
+        rd.forward(req, res);
+    }
+}
