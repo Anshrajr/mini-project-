@@ -1,0 +1,79 @@
+import java.io.*;
+import java.util.*;
+
+public class ResumeBuilder {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("====== Resume Builder (Java Mini Project) ======\n");
+
+        //Collect user input
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Email: ");
+        String email = sc.nextLine();
+
+        System.out.print("Enter Phone: ");
+        String phone = sc.nextLine();
+
+        System.out.print("Enter Education Details: ");
+        String education = sc.nextLine();
+
+        System.out.print("Enter Skills: ");
+        String skills = sc.nextLine();
+
+        System.out.print("Enter Experience / Projects: ");
+        String experience = sc.nextLine();
+
+        // Save as XML
+        saveXML(name, email, phone, education, skills, experience);
+
+        // Save as Text File (Simple Resume)
+        saveText(name, email, phone, education, skills, experience);
+
+        System.out.println("\n✅ Resume successfully created!");
+        System.out.println("📁 Generated Files:");
+        System.out.println("➡ resume.xml");
+        System.out.println("➡ resume.txt");
+    }
+
+    //--------------- XML STORAGE -------------------
+    public static void saveXML(String name, String email, String phone,
+                               String edu, String skills, String exp) {
+        try {
+            FileWriter fw = new FileWriter("resume.xml");
+            fw.write("<resume>\n");
+            fw.write("  <name>" + name + "</name>\n");
+            fw.write("  <email>" + email + "</email>\n");
+            fw.write("  <phone>" + phone + "</phone>\n");
+            fw.write("  <education>" + edu + "</education>\n");
+            fw.write("  <skills>" + skills + "</skills>\n");
+            fw.write("  <experience>" + exp + "</experience>\n");
+            fw.write("</resume>");
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Error saving XML: " + e);
+        }
+    }
+
+    //--------------- TEXT RESUME -------------------
+    public static void saveText(String name, String email, String phone,
+                                String edu, String skills, String exp) {
+        try {
+            FileWriter fw = new FileWriter("resume.txt");
+            fw.write("=========== RESUME ============\n");
+            fw.write("Name: " + name + "\n");
+            fw.write("Email: " + email + "\n");
+            fw.write("Phone: " + phone + "\n\n");
+            fw.write("----- Education -----\n" + edu + "\n\n");
+            fw.write("----- Skills -----\n" + skills + "\n\n");
+            fw.write("----- Experience / Projects -----\n" + exp + "\n");
+            fw.write("===============================\n");
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Error saving text: " + e);
+        }
+    }
+}
