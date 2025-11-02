@@ -1,0 +1,27 @@
+jsp
+Copy code
+<!DOCTYPE html>
+<html>
+<head><title>Resume Builder</title></head>
+<body>
+<h2>Resume Builder</h2>
+
+<form action="resume" method="post">
+
+<b>Name:</b> <input type="text" name="name"><br><br>
+<b>Email:</b> <input type="email" name="email"><br><br>
+<b>Phone:</b> <input type="text" name="phone"><br><br>
+
+<b>Education:</b><br>
+<textarea name="education" rows="3" cols="40"></textarea><br><br>
+
+<b>Skills:</b><br>
+<textarea name="skills" rows="3" cols="40"></textarea><br><br>
+
+<b>Experience:</b><br>
+<textarea name="experience" rows="3" cols="40"></textarea><br><br>
+
+<input type="submit" value="Create Resume">
+</form>
+</body>
+</html>
